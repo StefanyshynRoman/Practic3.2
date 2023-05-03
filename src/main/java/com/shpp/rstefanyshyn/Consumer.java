@@ -34,12 +34,12 @@ public class Consumer implements Constant {
 
 
     public String receiveMessage() throws Exception {
-        Message message = messageConsumer.receive(1000);
+        Message message = messageConsumer.receive();
         if (message instanceof TextMessage) {
             TextMessage textMessage = (TextMessage) message;
             if (((TextMessage) message).getText().equals(POISON_PILL)) {
                 logger.warn("Received poison");
-                closeConnection();
+                return null;
 
             }
             return textMessage.getText();
