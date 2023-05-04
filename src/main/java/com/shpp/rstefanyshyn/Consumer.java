@@ -52,9 +52,9 @@ public class Consumer implements Constant {
         try {
             messageConsumer.close();
             session.close();
-            connection.stop();
+            connection.close();
             logger.info("Closed consumer connection");
-            System.exit(1);
+
         } catch (Exception e) {
             throw new Exception(e);
         }
