@@ -14,14 +14,15 @@ public class Consumer implements Constant {
     private final Connection connection;
     private final Session session;
     private final MessageConsumer messageConsumer;
-
+    private final Destination queue;
+    private final ActiveMQConnectionFactory factory;
     public Consumer() throws Exception {
         try {
-            ActiveMQConnectionFactory factory = Services.activeMQConnectionFactory();
+             factory = Services.activeMQConnectionFactory();
             connection = factory.createConnection();
             connection.start();
             session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
-            Destination queue = session.createQueue(QUEUE);
+             queue = session.createQueue(QUEUE);
             messageConsumer = session.createConsumer(queue);
 
 
@@ -48,7 +49,7 @@ public class Consumer implements Constant {
         return null;
     }
 
-    public void closeConnection() throws Exception {
+    public boolean closeConnection() throws Exception {
         try {
             messageConsumer.close();
             session.close();
@@ -56,8 +57,11 @@ public class Consumer implements Constant {
             logger.info("Closed consumer connection");
 
         } catch (Exception e) {
-            throw new Exception(e);
+            logger.info("Closed consumer not connection");
+            return true;
+
         }
+        return false;
     }
 
 

@@ -47,15 +47,17 @@ public class Producer implements Constant {
 
     }
 
-    public void stop() {
+    public boolean closeConectionProducer() {
         try {
             session.close();
             connection.close();
             logger.warn("Producer is   stopped!");
         } catch (JMSException e) {
             logger.error("Producer  stopped!", e);
-            throw new RuntimeException(e);
+            return true;
+
         }
+        return false;
     }
 
 

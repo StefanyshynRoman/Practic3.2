@@ -1,12 +1,18 @@
 package com.shpp.rstefanyshyn;
 
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.concurrent.atomic.AtomicInteger;
 
 public interface Constant {
     GetProperty PROPERTY = new GetProperty("config.properties");
+
     String POISON_PILL = PROPERTY.getValueFromProperty("poison");
+
     String STOP_TIME = PROPERTY.getValueFromProperty("timer");
+
     String QUEUE=PROPERTY.getValueFromProperty("queue");
     String BROKER_URL=PROPERTY.getValueFromProperty("broker");
     String USER=PROPERTY.getValueFromProperty("user");

@@ -31,7 +31,7 @@ public class PojoMessage implements Serializable {
     }
 
 
-    public long getCount() {
+    public int getCount() {
         return count;
     }
 

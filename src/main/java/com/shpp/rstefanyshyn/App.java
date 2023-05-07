@@ -10,10 +10,6 @@ public class App implements Constant {
     private static final Logger logger = LoggerFactory.getLogger(App.class);
 
 
-
-
-
-
     public static void main(String[] args) throws Exception  {
         int messageAmount;
         if (args.length != 0) {

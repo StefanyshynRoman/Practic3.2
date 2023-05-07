@@ -18,9 +18,9 @@ public class GetProperty {
     private final String fileNameProperty;
     private static final Logger logger = LoggerFactory.getLogger(GetProperty.class);
     private final Properties prop = new Properties();
+    String value;
 
     public GetProperty(String fileNameProperty) {
-
         this.fileNameProperty = fileNameProperty;
         loadFile();
     }
@@ -43,10 +43,9 @@ public class GetProperty {
     }
 
     public String getValueFromProperty(String key) {
-        logger.info(" Value from properties {}",key);
+        logger.info(" Take from properties {}",key );
         return prop.getProperty(key.toLowerCase(Locale.ROOT));
     }
-
     public String getFileNameProperty() {
         logger.info("File name");
         return fileNameProperty;

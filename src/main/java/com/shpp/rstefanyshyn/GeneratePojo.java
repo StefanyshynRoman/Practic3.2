@@ -21,7 +21,7 @@ public class GeneratePojo implements Constant {
         // TODO document why this constructor is empty
     }
 
-    private String randomName() {
+    public String randomName() {
         int leftLimit = 48; // numeral '0'
         int rightLimit = 122; // letter 'z'
         int randomLimit=5;
@@ -36,7 +36,7 @@ public class GeneratePojo implements Constant {
     }
 
 
-    private LocalDateTime randomDate() {
+    public LocalDateTime randomDate() {
         int yearAg0=10;
         LocalDateTime periodStart = LocalDateTime.now().minusYears(yearAg0);
         LocalDateTime periodEnd = LocalDateTime.now();
@@ -47,36 +47,16 @@ public class GeneratePojo implements Constant {
         return LocalDateTime.parse(formatDateTime, formatter);
     }
 
-    private Integer randomCount() {
+    public Integer randomCount() {
 
         Random random = new Random();
         return random.nextInt(RANDOM_COUNT);
     }
 
-//    private void startAndStopTimer() throws InterruptedException {
-//        timer = new Timer(Integer.parseInt(STOP_TIME));
-//        timer.startAndStop();
-//        logger.info("Timer  was stopped!");
-//        logger.info("Timer is second {}", timer.getElapsedTimeSecs());
-//    }
-//
-//    private void newTread() {
-//        Thread thread = new Thread(() -> {
-//            try {
-//                startAndStopTimer();
-//            } catch (InterruptedException e) {
-//                logger.error("Interrupted!", e);
-//                // Restore interrupted state...
-//                Thread.currentThread().interrupt();
-//            }
-//        });
-//        thread.start();
-//
-//    }
+
 
     public void generateMessages(Producer producer, Integer maxN) {
         logger.info("generate POJO ");
-        //newTread();
         StopWatch stopWatch=new StopWatch();
         stopWatch.restart();
         Stream.generate(() -> new PojoMessage(randomName(), randomCount(),
@@ -85,19 +65,13 @@ public class GeneratePojo implements Constant {
                 .forEach(msg -> {
                     producer.send(Services.toJson(msg));
                     COUNTER_SEND_MESS.getAndIncrement();
-                   //  logger.info("№ "+COUNTER_SEND_MESS+ "  " + msg+ "  ");
-
+                    // logger.info("№ "+COUNTER_SEND_MESS+ "  " + msg+ "  ");
                 });
         logger.info("RPS_SEND_MESSAGES  {}   ", (COUNTER_SEND_MESS.doubleValue() / stopWatch.taken()) * THOUSAND);
         producer.send(POISON_PILL);
-        producer.stop();
-       // logger.warn(rps());
+        producer.closeConectionProducer();
         logger.info("Send "+COUNTER_SEND_MESS);
 
     }
 
-    public String rps() {
-
-        return "RPS----------------" + (COUNTER_SEND_MESS.doubleValue()) / (timer.getElapsedTimeSecs());
-    }
 }
