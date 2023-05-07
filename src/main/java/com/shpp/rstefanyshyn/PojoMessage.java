@@ -10,11 +10,11 @@ import java.util.Objects;
 
 public class PojoMessage implements Serializable {
     @NotNull
-    @Size(min = 7)
+    @Size(min = 7,message ="gk;gnfg,.fgmfd.gdfmg")
     @Pattern(regexp = ".*a.*")
 
     private String name;
-    @Min(value = 10)
+    @Min(value = 10,message ="4444444444444444444444444444444")
     private int count;
     @JsonDeserialize
     private LocalDateTime dateTime;

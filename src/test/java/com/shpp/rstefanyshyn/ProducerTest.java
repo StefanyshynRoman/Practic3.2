@@ -64,14 +64,18 @@ class ProducerTest implements Constant {
 //        verify(myList, times(1)).add(0, "");
 //    }
     @Test
-    void send() throws JMSException {
+    void send() throws Exception {
         String msg="hello test";
 
         when(message.getText()).thenReturn(msg);
         assertEquals(msg,message.getText());
-        Producer producer1=mock(Producer.class);
+       // Producer producer1=mock(Producer.class);
+        ActiveMQConnectionFactory factory=mock(ActiveMQConnectionFactory.class);
+
+        Producer producer1=new Producer();
         producer1.send("hello");
-        verify(producer1,times(1)).send("hello");
+
+       verify(producer1,times(1)).send("hello");
     }
 
     @Test

@@ -16,6 +16,8 @@ public class App implements Constant {
             try {
                 messageAmount = Integer.parseInt(args[0]);
             } catch (NumberFormatException e) {
+              //  e.printStackTrace();
+                logger.error("dfdsfdsf",e);
                 messageAmount = Integer.parseInt(COUNT_MESSAGES);
             }
         } else {

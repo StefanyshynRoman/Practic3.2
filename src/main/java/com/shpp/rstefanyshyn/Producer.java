@@ -39,7 +39,7 @@ public class Producer implements Constant {
 
     public void send(String msg) {
         try {
-            message.setText(String.valueOf(msg));
+            message.setText(msg);
             messageProducer.send(message);
         } catch (JMSException e) {
             logger.error("Message don't send", e);
@@ -55,7 +55,6 @@ public class Producer implements Constant {
         } catch (JMSException e) {
             logger.error("Producer  stopped!", e);
             return true;
-
         }
         return false;
     }
