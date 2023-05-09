@@ -1,10 +1,11 @@
-Implement a program that will output a multiplication table for numbers to the console,
-the type of which is specified by a system variable (int by default),
-and the minimum, maximum, and increment are specified in the properties file.
-Create a git repo on the selected resource (Github || Gitlab || CodeCommit)
-Configure any CI and compile the project from the main branch
-Cover the code with tests
-Create a dev branch and make changes to it according to Sonar's recommendations
-using the IDE's refactoring capabilities
-Create a merge request from dev to master
-Run the frozen on EC2 automatically, using Jenkins.
+Generate using Streams N POJO messages
+(N is given as the startup argument, N > 1000
+pojo: {name: “text”, count: xxx, created_at: date_time} random)
+And send them to one ActiveMq queue <IN-queue>,
+Take out the connection/queue name in properties,
+Stop generation - by time (parameter in seconds from the property) via "poison pill"
+Read messages from the IN-queue (simultaneously with generation, 
+  who is interested in parallel work or after generation, for simplicity), run through validators
+(name length >=7, there is at least one letter 'a', count >= 10)
+It is valid to write in one csv-file with two fields name & count
+Invalid - into another csv file with an additional error field in the form of json {“errors”:[]}.
